@@ -14,14 +14,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color:#61dafb;
+  min-height: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: goldenrod;
 }
 
 .App-link {
@@ -35,4 +35,93 @@
   to {
     transform: rotate(360deg);
   }
+}
+.signup-form{
+  /* Container for the form */
+.signup-form {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px 40px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form title */
+.signup-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+/* Input fields */
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"],
+.signup-form input[type="tel"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+/* Input focus effect */
+.signup-form input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  outline: none;
+}
+
+/* Submit button */
+.signup-form input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Button hover effect */
+.signup-form input[type="submit"]:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(33, 136, 56, 0.3);
+}
+
+/* Sign in link */
+.signup-form p {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup-form p a {
+  color: #28a745;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.signup-form p a:hover {
+  color: #218838;
+  text-decoration: underline;
+}
+
+/* Optional: responsive for small screens */
+@media (max-width: 500px) {
+  .signup-form {
+    padding: 25px 20px;
+    margin: 30px 10px;
+  }
+}
 }

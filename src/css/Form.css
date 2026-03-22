@@ -1,0 +1,127 @@
+/* Background */
+body {
+  background: linear-gradient(135deg, #1f4037, #99f2c8);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Card Container */
+.cards {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 35px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Title */
+.cards h1 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* Floating Input Group */
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1.5px solid #ccc;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+  transition: 0.3s;
+}
+
+/* Focus */
+.form-group input:focus {
+  border-color: #00b894;
+  box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
+}
+
+/* Labels */
+.form-group label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: #999;
+  font-size: 15px;
+  background: #fff;
+  padding: 0 5px;
+  transition: 0.3s;
+}
+
+/* Float label */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 12px;
+  color: #00b894;
+}
+
+/* Button */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #00b894, #00cec9);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 206, 201, 0.4);
+}
+
+/* Success message */
+.success-box {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Error message */
+.error-box {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Loader positioning */
+.loader-top {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Link */
+.signup-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.signup-link a {
+  color: #00b894;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}

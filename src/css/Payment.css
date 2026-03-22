@@ -1,0 +1,136 @@
+/* MAIN CONTAINER */
+.payment-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #00ffcc !important;
+}
+
+/* BACK BUTTON */
+.btn-primary {
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #00c6ff !important;
+  transform: scale(1.05);
+}
+
+/* CARD */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  transition: 0.3s ease;
+}
+
+/* CARD HOVER */
+.card:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* PRODUCT IMAGE */
+.product_img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* TEXT STYLING */
+.text-info {
+  font-weight: bold;
+}
+
+.text-dark {
+  color: #ddd !important;
+}
+
+.text-warning {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* INPUT */
+.form-control {
+  border-radius: 12px;
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+/* INPUT PLACEHOLDER */
+.form-control::placeholder {
+  color: #ccc;
+}
+
+/* INPUT FOCUS */
+.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 10px #00c6ff;
+  background: rgba(255,255,255,0.15);
+}
+
+/* BUTTON */
+.btn-success {
+  width: 100%;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+}
+
+/* BUTTON HOVER */
+.btn-success:hover {
+  background: #00c6ff !important;
+  color: #000 !important;
+  transform: scale(1.05);
+}
+
+/* SUCCESS MESSAGE */
+.text-success {
+  text-align: center;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* ERROR */
+.text-danger {
+  text-align: center;
+  font-weight: 500;
+}
+
+/* CARD SPACING FIX */
+.card-body {
+  padding: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+
+  .product_img {
+    height: 180px;
+  }
+}
