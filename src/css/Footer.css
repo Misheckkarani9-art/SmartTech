@@ -1,0 +1,113 @@
+.pca-footer{
+  margin-top: 28px;
+  color: rgba(255,255,255,0.9);
+  background: radial-gradient(900px 320px at 15% 0%, rgba(13,202,240,0.20), transparent 55%),
+              radial-gradient(900px 320px at 85% 0%, rgba(32,201,151,0.18), transparent 55%),
+              linear-gradient(180deg, #0b1220, #070b14);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+
+.pca-footer__top{
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  padding: 34px 0 20px;
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1fr;
+  gap: 26px;
+}
+
+.pca-footer__logo{
+  margin: 0 0 10px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  font-size: 1.25rem;
+}
+
+.pca-footer__tagline{
+  margin: 0 0 14px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.55rem;
+  max-width: 42ch;
+}
+
+.pca-footer__badges{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pca-badge{
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: #06101a;
+  background: linear-gradient(90deg, rgba(13,202,240,0.95), rgba(32,201,151,0.95));
+  box-shadow: 0 12px 22px rgba(13,202,240,0.16);
+}
+
+.pca-footer__title{
+  margin: 0 0 12px;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.2px;
+}
+
+.pca-footer__links ul,
+.pca-footer__contact ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.pca-footer__link{
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color .2s ease, transform .2s ease;
+  display: inline-block;
+}
+
+.pca-footer__link:hover{
+  color: rgba(13,202,240,0.95);
+  transform: translateX(3px);
+}
+
+.pca-footer__text{
+  color: rgba(255,255,255,0.72);
+  font-weight: 650;
+}
+
+.pca-footer__bottom{
+  border-top: 1px solid rgba(255,255,255,0.08);
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  padding: 14px 0 18px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pca-footer__dev{
+  margin: 0;
+  color: rgba(255,255,255,0.75);
+  font-weight: 700;
+}
+
+.pca-footer__devname{
+  color: rgba(255,255,255,0.95);
+  font-weight: 950;
+  letter-spacing: 0.2px;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .pca-footer__top{
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,95 +1,126 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 import "../css/Form.css";
 
 const Signin = () => {
-    const [email,setEmail] = useState("");
-    const[password,setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false); // Remember Me
+  const [showPassword, setShowPassword] = useState(false); // Show/hide password
 
-    const[loading,setLoading] = useState(false);
-    const[success,setSuccess] =useState("");
-    const[error,setError] =useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-    const navigate = useNavigate();
-    //Function to submit data to API
-    const handlesubmit = async (e) => {
-        e.preventDefault();//Prevent default actions
-        setLoading(true);//set progress message
-        //Add data to form data object
-        try {
-            const data = new FormData();
-            data.append("email", email);
-            data.append("password", password);
-            //Post above data to Backend API
-            const response = await axios.post(
-            "https://karanimisheck22.alwaysdata.net/api/signin",
-            data);
-            setLoading(false); //After successful posting, Clear the loading
+  const navigate = useNavigate();
 
-            setSuccess(response.data.message)
-            // clear the hooks
-            setEmail("")
-            setPassword("")
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-            setTimeout(() =>{
-            setSuccess("");
-            }, 5000)
+    try {
+      const data = new FormData();
+      data.append("email", email);
+      data.append("password", password);
 
-            // Check if the response has user item, user exists
-            if (response.data.user) {
-            //If Yes
-            // Redirect to /getproducts Component
-            navigate("/");
-            }
-            else {
-            //If Not
-            //User Not Found, Show Error message
-            setError(response.data.message);
-            }
-            //If there was an Error, Clear Loading
-        } 
-        catch (error) {
-           setLoading(false);
-           setError(error.data.message);
-        }
-    };
+      const response = await axios.post(
+        "https://karanimisheck22.alwaysdata.net/api/signin",
+        data
+      );
+
+      setLoading(false);
+      setSuccess(response.data.message);
+
+      if (remember) {
+        localStorage.setItem("email", email);
+      } else {
+        localStorage.removeItem("email");
+      }
+
+      setEmail("");
+      setPassword("");
+      e.target.reset();
+
+      setTimeout(() => setSuccess(""), 5000);
+
+      // Redirect if user exists
+      if (response.data.user) {
+        navigate("/");
+      } else {
+        setError(response.data.message);
+      }
+
+    } catch (err) {
+      setLoading(false);
+      setError(err.message);
+    }
+  };
+
   return (
-    <div className="row justify-content-center mt-4">
-        <div className="col-md-6 card shadow p-4">
-            <h1 className='text-primary'>Sign In</h1>
+    <div className="row justify-content-center mt-5 page-bg">
+      <div className="cards col-md-5 form-card">
+        <h1 className="text-center mb-3 text-warning">Welcome Back</h1>
+        <h3 className="text-center mb-4 text-light">Sign In</h3>
 
-            {loading && <Loader/>}
-            <h3 className='text-success'>{success}</h3>
-            <h4 className='text-danger'>{error}</h4>
+        {loading && <div className="loader-top"><Loader /></div>}
+        {success && <div className="success-box">{success}</div>}
+        {error && <div className="error-box">{error}</div>}
 
-            <form onSubmit ={handlesubmit}>
-                <input type="email" 
-                placeholder='Enter the email address here...'
-                className='form-control' 
-                required
-                value={email}
-                onChange ={(e) => setEmail(e.target.value)}/> <br />
-                {/* {email} */}
+        <form onSubmit={handlesubmit}>
 
-                <input type="password" 
-                placeholder='Enter the password here...'
-                className='form-control' 
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}/> <br />
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder=" "
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <label>Email</label>
+          </div>
 
-                <input type="submit" 
-                value="Signin"
-                className='btn btn-primary'/>
-            </form>
+          <div className="form-group">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder=" "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <label>Password</label>
+            <span
+              className="show-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </span>
+          </div>
 
-            Don't have an account? <Link to="/signup">Sign up</Link>
+          {/* Remember Me */}
+          <div className="form-check mb-3">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="rememberMe"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+            />
+            <label className="form-check-label" htmlFor="rememberMe">
+              Remember Me
+            </label>
+          </div>
+
+          <button type="submit" className="btn-submit w-100">Sign In</button>
+        </form>
+
+        <div className="signup-link mt-3 text-center">
+          Don't have an account? <Link to="/signup">Sign up</Link>
         </div>
-      
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Signin
+export default Signin;

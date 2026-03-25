@@ -1,0 +1,57 @@
+/* Wrap search so dropdown aligns well */
+.pnavSearchWrap{
+  position: relative;
+  margin-left: auto;
+}
+
+/* Dropdown */
+.pnavSearchDrop{
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 16px;
+  box-shadow: 0 26px 70px rgba(2, 8, 23, 0.14);
+  overflow: hidden;
+  z-index: 2000;
+}
+
+.pnavSearchItem{
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color .2s ease;
+  text-align: left;
+}
+
+.pnavSearchItem:hover{
+  background: rgba(13,202,240,0.10);
+}
+
+.pnavSearchItemTitle{
+  font-weight: 900;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.pnavSearchItemPrice{
+  font-weight: 950;
+  color: #b45309;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.pnavSearchEmpty{
+  padding: 14px 12px;
+  color: #64748b;
+  font-weight: 800;
+}

@@ -61,27 +61,27 @@ const Addproducts = () => {
       <form onSubmit={handleSubmit}>
 
         <input type="text"
-        placeholder='Enter product name' 
+        placeholder='Enter gadget name' 
         className='form-control custom-input'
         required
         value={product_name}
         onChange={(e) => setProductName(e.target.value)}/> <br />
 
         <input type="text"
-        placeholder='Enter product description'
+        placeholder='Enter gadget description'
         className='form-control custom-input' 
         required
         value={product_description}
         onChange={(e) => setProductDescription(e.target.value)}/> <br />
 
         <input type="number" 
-        placeholder='Enter product price'
+        placeholder='Enter gadget price'
         className='form-control custom-input'
         required
         value={product_cost}
         onChange={(e) => setProductCost(e.target.value)}/> <br />
         
-        <label className='text-primary mb-1'>Product photo</label>
+        <label className='text-primary mb-1'>Gadget photo</label>
         <input type="file" 
         className='form-control custom-file'
         required
@@ -89,7 +89,7 @@ const Addproducts = () => {
         onChange={(e) => setProductPhoto(e.target.files[0])}/> <br />
 
         <input type="submit" 
-        value="Add product"
+        value="Add gadget"
         className='btn btn-outline-primary submit-btn'/>
       </form>
       </div>

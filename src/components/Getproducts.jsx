@@ -1,83 +1,83 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import Loader from './Loader';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Loader from "./Loader";
+import { useNavigate } from "react-router-dom";
 import "../css/GetProduct.css";
+import Mycarousel from "./Mycarousel";
 
 const Getproduct = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // 2. initialize the hook to help you nmanage the satate of your application
-  const [products,setProducts] = useState([]);
-  const [loading,setLoading] = useState(false);
-  const [error,setError] = useState("");
+  const navigate = useNavigate();
 
-  // declare the navigate hook
-  const navigate = useNavigate()
+  const img_url = "https://karanimisheck22.alwaysdata.net/static/images/";
 
-  // below we specify the image base url
-  const img_url = "https://karanimisheck22.alwaysdata.net/static/images/"
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      setError("");
 
-  //3. create a function to help you fetch the products from your API
-  const fetchProducts = async() =>{
-    try{
-      // 4.update the loading hook
-      setLoading(true)
+      const response = await axios.get(
+        "https://karanimisheck22.alwaysdata.net/api/get_products"
+      );
 
-      //5. interact with your endpoint for fetching the products
-      const response = await axios.get("https://karanimisheck22.alwaysdata.net/api/get_products")
+      // Most likely response.data is already an array of products
+      setProducts(response.data);
 
-      //6. update the products hook with the response given from tthe API
-      setProducts(response.data)
-      // 7.Set the loading hook  back to default
-      setLoading(false)
-
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
     }
-    catch(error){
-      // if there is an error 
-      // set the loading back to default
-      setLoading(false)
+  };
 
-      // update the error wiith message
-      setError(error.message)
-
-    }
-  }
-  // we shall use the use Effect hook. This hook enables us to automatiacally re-render  new features incase of any changes
   useEffect(() => {
-    fetchProducts()
-  },[])
-  // console.log(products)
-
+    fetchProducts();
+  }, []);
 
   return (
-    <div className='row'>
+    <div className="row g-4">
       <h3 className="text-primary">Available products</h3>
-     {loading && <Loader/>}
-     <h4 className="text-danger">{error}</h4>
+      <Mycarousel/>
 
-     {/* map the products fetched from the API to the user interface */}
+      {loading && <Loader />}
+      {error && <h4 className="text-danger">{error}</h4>}
 
-     {products.map((product) => (
-      <div className="col-md-3 justify-content-center mb-3">
-      <div className="card shadow">
-        <img src={img_url + product.product_photo}
-        alt="" className='product_img mt-3' />
-        <div className="card body">
-          <h5 className="text-success">{product.product_name.slice(0,25)}</h5>
+      {products.map((product) => (
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.product_id}>
+          <div className="card product-card h-100">
+  <div className="product-media">
+    {/* optional badge */}
+    {/* <span className="product-badge">New</span> */}
 
-          <p className="text-secondary"> {product.product_description.slice(0,30)}...</p>
+    <img
+      src={img_url + product.product_photo}
+      alt={product.product_name}
+      className="product-img"
+    />
+  </div>
 
-          <h4 className="text-warning">$ {product.product_cost}</h4>
+  <div className="card-body d-flex flex-column">
+    <h5 className="product-title">{product.product_name.slice(0, 25)}</h5>
+    <p className="product-desc flex-grow-1">
+      {product.product_description.slice(0, 60)}...
+    </p>
+    <div className="product-price">KSH {product.product_cost}</div>
 
-          <button className="btn btn-outline-info text-success" onClick={() => navigate("/makepayment" , {state :{product}})}><b>Purchase Now</b></button>
+    <button
+      className="btn product-btn mt-2"
+      onClick={() => navigate("/makepayment", { state: { product } })}
+    >
+      Purchase Now
+    </button>
+  </div>
+</div>
         </div>
-      </div>
-     </div>
-     ) )} <br />
-
-
+      ))}
     </div>
-  )
-}
+  );
+};
 
 export default Getproduct;

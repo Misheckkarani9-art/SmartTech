@@ -1,0 +1,43 @@
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.category-btn {
+  padding: 6px 14px;
+  border: 1px solid #007bff;
+  border-radius: 25px;
+  background-color: white;
+  color: #007bff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.category-btn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.category-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Product cards already have shadow, added hover effect */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.product_img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}

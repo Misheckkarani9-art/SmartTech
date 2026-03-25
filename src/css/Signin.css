@@ -17,7 +17,7 @@
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
-h1 {
+h1, h3 {
   color: #ffc107;
 }
 
@@ -48,6 +48,15 @@ h1 {
   background: #1e1e2f;
   padding: 0 5px;
   font-size: 14px;
+  color: #ffc107;
+}
+
+.show-password {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  font-size: 13px;
+  cursor: pointer;
   color: #ffc107;
 }
 

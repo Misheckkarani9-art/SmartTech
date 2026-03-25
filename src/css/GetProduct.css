@@ -1,93 +1,277 @@
-/* PAGE BACKGROUND */
-body {
-  background: #1f1f2e;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+/* ===== Product Card (Nice look + effects) ===== */
 
-/* TITLE */
-h3 {
-  text-align: center;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  color: #4da6ff !important;
-}
-
-/* GRID SPACING */
-.row {
-  padding: 20px;
-}
-
-/* CARD DESIGN */
-.card {
-  border: none;
-  border-radius: 15px;
-  background: #2c2c3e;
-  color: #fff;
-  transition: 0.3s ease;
+.product-card{
+  border: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform .25s ease, box-shadow .25s ease;
   height: 100%;
+  position: relative;
 }
 
-/* CARD HOVER EFFECT */
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 10px 25px rgba(0,0,0,0.5);
+/* subtle top glow */
+.product-card::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0dcaf0, #20c997, #ffc107);
 }
 
-/* IMAGE */
-.product_img {
+/* hover effects */
+.product-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.14);
+}
+
+/* ===== Image ===== */
+.product-img{
   width: 100%;
-  height: 180px;
-  object-fit: contain;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px;
+  height: 200px;          /* as requested */
+  object-fit: cover;      /* avoids stretching */
+  display: block;
+  transition: transform .35s ease, filter .35s ease;
+  filter: saturate(1.05) contrast(1.02);
 }
 
-/* CARD BODY */
-.card.body,
-.card-body {
-  padding: 15px;
+.product-card:hover .product-img{
+  transform: scale(1.06);
+  filter: saturate(1.15) contrast(1.08);
 }
 
-/* PRODUCT NAME */
-.text-success {
-  font-weight: 600;
+/* ===== Card Body ===== */
+.product-card .card-body{
+  padding: 14px 14px 16px;
 }
 
-/* DESCRIPTION */
-.text-secondary {
-  font-size: 14px;
-  opacity: 0.8;
+/* title */
+.product-card h5{
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: .2px;
 }
 
-/* PRICE */
-.text-warning {
-  font-weight: bold;
+/* description */
+.product-card p{
+  font-size: 0.92rem;
+  margin-bottom: 10px;
+  line-height: 1.35rem;
 }
 
-/* BUTTON */
-button {
+/* price */
+.product-card h4{
+  font-weight: 800;
+  margin: 6px 0 12px;
+}
+
+/* ===== Button ===== */
+.product-card .btn{
+  border-radius: 12px;
+  font-weight: 700;
+  padding: 10px 12px;
+  transition: background-color .2s ease, color .2s ease, transform .15s ease;
+}
+
+.product-card .btn:hover{
+  transform: translateY(-1px);
+}
+
+/* ===== Optional: nicer spacing between cards if you want ===== */
+.row.g-4{
+  margin-top: 4px;
+}
+/* =========================
+   Professional, lively cards
+   ========================= */
+
+/* Optional: give the page a soft background for contrast */
+body {
+  background: #f6f8fc;
+}
+
+/* Card container */
+.product-card{
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 10px 30px rgba(2, 8, 23, 0.08),
+    0 1px 0 rgba(255,255,255,0.9) inset;
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  height: 100%;
+  position: relative;
+}
+
+/* Animated gradient accent bar (lively but professional) */
+.product-card::before{
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #0dcaf0, #20c997, #ffc107, #6f42c1, #0dcaf0);
+  background-size: 300% 100%;
+  animation: productAccent 6s linear infinite;
+  opacity: 0.95;
+}
+
+/* Soft glow ring on hover */
+.product-card::after{
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: radial-gradient(400px 180px at 20% 0%, rgba(13,202,240,0.20), transparent 55%),
+              radial-gradient(420px 220px at 80% 20%, rgba(32,201,151,0.18), transparent 60%);
+  opacity: 0;
+  transition: opacity .28s ease;
+  pointer-events: none;
+}
+
+/* Hover lift */
+.product-card:hover{
+  transform: translateY(-8px);
+  border-color: rgba(13, 202, 240, 0.25);
+  box-shadow:
+    0 18px 50px rgba(2, 8, 23, 0.16),
+    0 2px 0 rgba(255,255,255,0.9) inset;
+}
+
+.product-card:hover::after{
+  opacity: 1;
+}
+
+/* Image wrapper so we can overlay badges/shine */
+.product-media{
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image */
+.product-img{
   width: 100%;
-  border-radius: 8px !important;
-  transition: 0.3s ease;
+  height: 200px;        /* as requested */
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform .45s ease, filter .45s ease;
+  filter: saturate(1.07) contrast(1.03);
 }
 
-/* BUTTON HOVER */
-button:hover {
-  background: #00c6ff !important;
-  color: #000 !important;
-  transform: scale(1.05);
+/* Shine sweep effect */
+.product-media::before{
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -60%;
+  width: 40%;
+  height: 160%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.35),
+    transparent
+  );
+  transform: rotate(18deg);
+  transition: left .55s ease;
+  pointer-events: none;
 }
 
-/* ERROR */
-.text-danger {
-  text-align: center;
+.product-card:hover .product-media::before{
+  left: 120%;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .product_img {
-    height: 150px;
-  }
+.product-card:hover .product-img{
+  transform: scale(1.07);
+  filter: saturate(1.15) contrast(1.07);
+}
+
+/* Subtle dark fade at bottom of image for text contrast if you add badges */
+.product-media::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(2,8,23,0.00) 60%, rgba(2,8,23,0.22) 100%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Card body */
+.product-card .card-body{
+  padding: 14px 14px 16px;
+}
+
+/* Title */
+.product-title{
+  font-weight: 800;
+  font-size: 1.02rem;
+  margin: 2px 0 8px;
+  color: #0f172a;
+  letter-spacing: 0.2px;
+}
+
+/* Description */
+.product-desc{
+  font-size: 0.92rem;
+  line-height: 1.4rem;
+  color: #475569;
+  margin-bottom: 12px;
+}
+
+/* Price row */
+.product-price{
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: #b45309;
+  margin: 0 0 12px;
+}
+
+/* Button: modern gradient + crisp hover */
+.product-btn{
+  border: 0 !important;
+  border-radius: 14px;
+  font-weight: 800;
+  padding: 10px 12px;
+  color: #05242b !important;
+  background: linear-gradient(90deg, rgba(13,202,240,0.95), rgba(32,201,151,0.95));
+  box-shadow: 0 10px 18px rgba(13,202,240,0.18);
+  transition: transform .18s ease, box-shadow .22s ease, filter .22s ease;
+}
+
+.product-btn:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+  box-shadow: 0 16px 28px rgba(32,201,151,0.22);
+}
+
+.product-btn:active{
+  transform: translateY(0px);
+  box-shadow: 0 10px 18px rgba(13,202,240,0.18);
+}
+
+/* Optional: a small badge (if you want to add like "New") */
+.product-badge{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0f172a;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 10px 18px rgba(2, 8, 23, 0.08);
+}
+
+/* Smooth animated accent */
+@keyframes productAccent{
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }

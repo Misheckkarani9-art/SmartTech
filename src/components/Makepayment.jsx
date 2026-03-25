@@ -1,115 +1,129 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
-import Loader from './Loader';
+import axios from "axios";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 import "../css/Payment.css";
 
 const Makepayment = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const {product} = useLocation().state || {}
-     const navigate = useNavigate()
-    // console.log(product)
+  const { product } = location.state || {};
 
+  const img_url = "https://karanimisheck22.alwaysdata.net/static/images/";
 
-    // below we specify the image base url
-  const img_url = "https://karanimisheck22.alwaysdata.net/static/images/"
+  const [number, setNumber] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-    //initializze the hooks to manage the number
-    const [number, setNumber] = useState("")
-    const [loading, setLoading] =useState(false);
-    const [success, setSuccess] =useState("")
-    const [error, setError] =useState("")
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+    if (!product) return;
 
-    // create the function that will handle the submit action
-    const handlesubmit = async (e) =>{
-        // prevent the site froom reloading
-        e.preventDefault()
+    setLoading(true);
+    setError("");
+    setSuccess("");
 
-        // update the loading hook
-        setLoading(true)
+    try {
+      const formdata = new FormData();
+      formdata.append("phone", number);
+      formdata.append("amount", product.product_cost);
 
-        try{
-            // ccreate a form data object
-            const formdata  = new FormData()
+      const response = await axios.post(
+        "https://karanimisheck22.alwaysdata.net/api/mpesa_payment",
+        formdata
+      );
 
-            // append the data to the foorm data
-            formdata.append("phone",number)
-            formdata.append("amount",product.product_cost)
+      setLoading(false);
+      setSuccess(response.data.message);
 
-            const response = await axios.post("https://karanimisheck22.alwaysdata.net/api/mpesa_payment",formdata)
-
-            // set loading back to default
-            setLoading(false)
-
-            // update the success hook with a message
-            setSuccess(response.data.message)
-
-        }
-        catch(error){
-            // if there iis an error respond to error
-            setLoading(false)
-
-            // update the error with error message
-            setError(error.message)
-
-
-        }
+      setTimeout(() => setSuccess(""), 5000);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
     }
-  
+  };
 
-
+  if (!product) {
+    return (
+      <div className="payment-container">
+        <div className="payment-shell">
+          <div className="alert alert-warning m-0">
+            No product selected. Please go back and choose a product.
+          </div>
+          <button className="btn btn-primary mt-3" onClick={() => navigate("/")}>
+            Back to Products
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="payment-container">
+      <div className="payment-shell">
+        <div className="payment-header">
+          <button className="btn btn-outline-primary" onClick={() => navigate("/")}>
+            ← Back
+          </button>
 
-      <div className="row justify-content-center">
-        {/* <button className="btn btn-outline-primary">Back To Products</button> */}
-        <h1 className="text-success">Make Payment - Lipa na Mpesa</h1>
-        
-        <div className="col-md-1">
-            <input type="button" 
-            className='btn btn-primary'
-            value="<-Back"
-            onClick={() => navigate("/")}/>
-        </div> <br /> <br />
+          <div>
+            <h1 className="payment-title">Make Payment</h1>
+            <p className="payment-subtitle">Lipa na Mpesa</p>
+          </div>
+        </div>
 
+        <div className="card payment-card">
+          {/* LEFT: IMAGE */}
+          <div className="payment-media">
+            <img
+              src={img_url + product.product_photo}
+              alt={product.product_name}
+              className="payment-img"
+            />
+          </div>
 
-        
-        <div className="card shadow p-4 col-md-6">
-            
-            <img src={img_url + product.product_photo}
-        alt="" className='product_img mt-3' />
+          {/* RIGHT: DETAILS + FORM */}
+          <div className="payment-content">
+            <h2 className="payment-product-name">
+              {product.product_name?.slice(0, 60)}
+            </h2>
 
-            <div className="card-body">
-                <h2 className="text-info"> {product.product_name.slice(0,40)}</h2>
+            <p className="payment-desc">
+              {product.product_description?.slice(0, 140)}...
+            </p>
 
-                <p className="text-dark">{product.product_description.slice(0,40)}...</p>
+            <div className="payment-price">KSH {product.product_cost}</div>
 
-                <h3 className="text-warning">$ {product.product_cost}</h3> <br />
+            <form onSubmit={handlesubmit} className="payment-form">
+              {loading && <Loader />}
+              {success && <div className="alert alert-success py-2">{success}</div>}
+              {error && <div className="alert alert-danger py-2">{error}</div>}
 
-                <form  onSubmit={handlesubmit}>
-                    {loading && <Loader/>}
-                    <h3 className="text-success">{success}</h3>
-                    <h4 className="text-danger">{error}</h4>
-                    <input type="number"
-                    className='form-control'
-                    placeholder='Enter the phone number 254XXXXX..' 
-                    required
-                    value={number}
-                    onChange={(e) => setNumber(e.target.value)}
-                   /> <br /> 
-                    {/* {number} */}
+              <label className="payment-label">Phone number</label>
+              <input
+                type="number"
+                className="form-control payment-input"
+                placeholder="2547XXXXXXXX"
+                required
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
+              />
 
-                    <input type="submit"
-                    value= "Make Payment"
-                    className='btn btn-success'/>
-                </form>
-            </div>
+              <button type="submit" className="btn payment-btn mt-3">
+                Make Payment
+              </button>
 
+              <div className="payment-hint">
+                Tip: Enter number in format <b>2547XXXXXXXX</b>.
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Makepayment
+export default Makepayment;
