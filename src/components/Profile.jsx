@@ -6,7 +6,6 @@ const Profile = () => {
     name: "",
     email: "",
     phone: "",
-   
     profilePic: null,
   });
   const [editing, setEditing] = useState(false);
@@ -21,11 +20,14 @@ const Profile = () => {
     }
   }, []);
 
-  // Save user to localStorage
+  // Save user to localStorage and update navbar
   const saveUser = () => {
     localStorage.setItem("profileUser", JSON.stringify(user));
     setEditing(false);
     setLoggedIn(true);
+
+    // Update navbar profile image
+    localStorage.setItem("navbarProfileImg", user.profilePic || "");
   };
 
   const handleChange = (e) => {
@@ -37,18 +39,20 @@ const Profile = () => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => setUser({ ...user, profilePic: reader.result });
+      reader.onload = () => {
+        setUser({ ...user, profilePic: reader.result });
+      };
       reader.readAsDataURL(file);
     }
   };
 
   const logout = () => {
     localStorage.removeItem("profileUser");
+    localStorage.removeItem("navbarProfileImg");
     setUser({
       name: "",
       email: "",
       phone: "",
-     
       profilePic: null,
     });
     setLoggedIn(false);
@@ -56,7 +60,6 @@ const Profile = () => {
   };
 
   if (!loggedIn) {
-    // Show login / create profile form
     return (
       <div className="profile-container">
         <h2>Create Your Profile</h2>
@@ -81,14 +84,12 @@ const Profile = () => {
           value={user.phone}
           onChange={handleChange}
         />
-        
         <input type="file" accept="image/*" onChange={handleProfilePic} />
         <button className="btn" onClick={saveUser}>Save Profile</button>
       </div>
     );
   }
 
-  // Show profile details
   return (
     <div className="profile-container">
       <h2>My Profile</h2>
@@ -100,6 +101,7 @@ const Profile = () => {
             <div className="placeholder">Add Picture</div>
           )}
         </div>
+
         {editing ? (
           <>
             <input
@@ -120,7 +122,6 @@ const Profile = () => {
               value={user.phone}
               onChange={handleChange}
             />
-            
             <input type="file" accept="image/*" onChange={handleProfilePic} />
             <button className="btn" onClick={saveUser}>Save</button>
             <button className="btn cancel" onClick={() => setEditing(false)}>Cancel</button>
@@ -130,7 +131,6 @@ const Profile = () => {
             <p><strong>Name:</strong> {user.name}</p>
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Phone:</strong> {user.phone}</p>
-           
             <button className="btn" onClick={() => setEditing(true)}>Edit Profile</button>
             <button className="btn logout" onClick={logout}>Log Out</button>
           </>

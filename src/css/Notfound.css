@@ -1,6 +1,6 @@
 /* Page wrapper (sidebar safe) */
 .Notfound {
-  margin-left: 260px; /* keeps space for sidebar */
+ 
   min-height: 100vh;
   background: linear-gradient(135deg, #020617, #0f172a);
   display: flex;

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import "../css/GetProduct.css";
-import Mycarousel from "./Mycarousel";
+
 
 const Getproduct = ({ cartItems, setCartItems }) => {
   const [products, setProducts] = useState([]);
@@ -13,6 +13,7 @@ const Getproduct = ({ cartItems, setCartItems }) => {
   const navigate = useNavigate();
   const img_url = "https://karanimisheck22.alwaysdata.net/static/images/";
 
+  // Fetch products from API
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -32,56 +33,73 @@ const Getproduct = ({ cartItems, setCartItems }) => {
     fetchProducts();
   }, []);
 
+  // Add to cart and navigate to Cart page
   const addToCart = (product) => {
-    // Check if already in cart
-    const exists = cartItems.find((item) => item.product_id === product.product_id);
+    const exists = cartItems.find(
+      (item) => item.product_id === product.product_id
+    );
+
     if (exists) {
-      alert("Product already in cart");
+      alert("Product already in cart, you can adjust quantity in cart.");
+      navigate("/cart"); // Go to cart if already exists
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      navigate("/cart"); // Navigate to cart after adding
     }
   };
 
   return (
-    <div className="row g-4">
-      
-      <h3 className="text-primary">Available Products</h3>
-      
+    <div className="products-container">
 
+    
+  
+
+      {/* Title */}
+      <h2 className="products-title">Available Cars</h2>
+
+      {/* Loading & Error */}
       {loading && <Loader />}
-      {error && <h4 className="text-danger">{error}</h4>}
+      {error && <h4 className="error">{error}</h4>}
 
-      {products.map((product) => (
-        <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.product_id}>
-          <div className="card product-card h-100">
-            <div className="product-media">
-              <img
-                src={img_url + product.product_photo}
-                alt={product.product_name}
-                className="product-img"
-              />
+      
+
+      {/* Products Grid */}
+      <div className="products-grid">
+        {products.map((product) => (
+          <div className="product-card" key={product.product_id}>
+
+            <img
+              src={img_url + product.product_photo}
+              alt={product.product_name}
+              className="product-img"
+            />
+
+            <div className="product-info">
+              <h5 className="product-title">{product.product_name}</h5>
+              <p className="product-desc">{product.product_description}</p>
+              <div className="product-category">{product.product_category}</div>
+              <h4 className="product-price">KSH {product.product_cost}</h4>
+
+              <div className="product-buttons">
+                {/* Add to Cart */}
+               
+
+                {/* Buy Now */}
+                <button
+                  className="buy-btn"
+                  onClick={() =>
+                    navigate("/makepayment", { state: { product } })
+                  }
+                >
+                  Buy Now
+                </button>
+              </div>
             </div>
 
-            <div className="card-body d-flex flex-column">
-              <h5 className="product-title">{product.product_name.slice(0, 25)}</h5>
-              <p className="product-desc flex-grow-1">
-                {product.product_description.slice(0, 60)}...
-              </p>
-              <div className="product_category">{product.product_category}</div>
-              <div className="product-price">KSH {product.product_cost}</div>
-
-
-
-              <button
-                className="btn product-btn mt-2"
-                onClick={() => navigate("/makepayment", { state: { product } })}
-              >
-                Buy Now
-              </button>
-            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
     </div>
   );
 };

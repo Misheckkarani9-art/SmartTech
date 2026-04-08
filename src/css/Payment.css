@@ -1,6 +1,6 @@
 /* Page wrapper (keeps space for sidebar) */
 .payment-container {
-  margin-left: 260px; /* adjust if your sidebar width changes */
+
   padding: 20px;
   background: #0f172a;
   min-height: 100vh;

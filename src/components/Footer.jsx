@@ -1,61 +1,47 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../css/Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer-container">
+        
+      <div className="footer-overlay">
+        
+        <div className="footer-content">
+          {/* About Section */}
+          <div className="footer-section about">
+            <h3>About Elegance Furniture</h3>
+            <p>
+              We provide high-quality, luxurious furniture that transforms your home. Discover our exclusive collections today.
+            </p>
+          </div>
 
-        {/* Brand */}
-        <div className="footer-section">
-          <h2 className="footer-logo">🎁 Gift Nest</h2>
-          <p className="footer-text">
-            Discover meaningful gifts, amazing deals, and curated products
-            for every occasion. Make every moment special with Gift Nest.
-          </p>
+          {/* Quick Links Section */}
+          <div className="footer-section links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Collections</a></li>
+              <li><a href="#">Promotions</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+
+          {/* Social Section */}
+          <div className="footer-section social">
+            <h3>Follow Us</h3>
+            <div className="social-icons">
+              <a href="#" className="social-link">Facebook</a>
+              <a href="#" className="social-link">Instagram</a>
+              <a href="#" className="social-link">Pinterest</a>
+            </div>
+          </div>
         </div>
 
-        {/* Quick Links */}
-        <div className="footer-section">
-          <h3>Quick Links</h3>
-          <Link to="/">Home</Link>
-          <Link to="/shop">Shop</Link>
-          <Link to="/categories">Categories</Link>
-          <Link to="/deals">Deals</Link>
-          <Link to="/orders">Orders</Link>
-          <Link to="/addproducts">➕ Add Product</Link>
+        {/* Bottom Line */}
+        <div className="footer-bottom">
+          <p>© 2026 Developed by Misheck Karani. All Rights Reserved.</p>
         </div>
-
-        {/* Categories */}
-        <div className="footer-section">
-          <h3>Gift Categories</h3>
-          <p>🎉 Birthday Gifts</p>
-          <p>💝 Anniversary Gifts</p>
-          <p>🎄 Holiday Gifts</p>
-          <p>🎁 Personalized Gifts</p>
-          <p>🏠 Home Gifts</p>
-        </div>
-
-        {/* Contact */}
-        <div className="footer-section">
-          <h3>Contact</h3>
-          <p>Email: support@giftnest.com</p>
-          <p>Phone: +254 700 000 000</p>
-          <p>Location: Nairobi, Kenya</p>
-        </div>
-
-        {/* Developer */}
-        <div className="footer-section">
-          <h3>Developer</h3>
-          <p>Built by: Misheck Karani</p>
-          <p>Full Stack Developer</p>
-        </div>
-
-      </div>
-
-      <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Gift Nest. All rights reserved.</p>
       </div>
     </footer>
   );

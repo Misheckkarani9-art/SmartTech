@@ -1,125 +1,80 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../css/Navbar.css";
 
-const Sidebar = () => {
-  const [index, setIndex] = useState(0);
-  const [openCategories, setOpenCategories] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
+const Navbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const timerRef = useRef(null);
 
-  const slides = [
-    {
-      title: "Perfect Gifts 🎁",
-      desc: "Find gifts for every occasion",
-      image: "https://images.unsplash.com/photo-1607082349566-187342175e2f"
-    },
-    {
-      title: "Trending Gifts 🔥",
-      desc: "Most loved items by customers",
-      image: "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a"
-    },
-    {
-      title: "Personalized Gifts ✨",
-      desc: "Make gifts unique and special",
-      image: "https://images.unsplash.com/photo-1513883049090-d0b7439799bf"
-    }
-  ];
+  // Start timer on hover
+  const handleMouseEnter = () => {
+    setDropdownOpen(true);
+    if (timerRef.current) clearTimeout(timerRef.current);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
+    // Start 5-second auto-close timer
+    timerRef.current = setTimeout(() => {
+      setDropdownOpen(false);
     }, 5000);
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  // Clear timer if mouse leaves
+  const handleMouseLeave = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setDropdownOpen(false);
+  };
+
+  // Reset timer if user hovers over dropdown links
+  const handleDropdownLinkClick = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setDropdownOpen(false);
+  };
 
   return (
-    <div className="layout">
+    <header className="header">
+      <nav className="navbar">
+        <div className="logo">
+          <img src="images/logo.jpg" alt="Logo" />
+        </div>
 
-      {/* Sidebar */}
-      <aside className="sidebar">
-
-        <div className="logo">🎁 GiftNest</div>
-
-        <ul className="menu">
-          <li><a href="/">🏠 Home</a></li>
-          <li><a href="/getproduct">🛍️ Shop</a></li>
-
-          {/* Categories Dropdown */}
-          <li onClick={() => setOpenCategories(!openCategories)}>
-            📂 Categories ⮟
-          </li>
-
-          {openCategories && (
-            <div className="dropdown">
-              <a href="/categories/birthday">Birthday Gifts</a>
-              <a href="/categories/anniversary">Anniversary Gifts</a>
-              <a href="/categories/custom">Custom Gifts</a>
-              <a href="/categories/corporate">Corporate Gifts</a>
-            </div>
-          )}
-
-          <li><a href="/deals">🔥 Deals</a></li>
-          <li><a href="/news">✨ News</a></li>
-          <li><a href="/orders">📦 Orders</a></li>
-
-          {/* Profile Dropdown */}
-          <li onClick={() => setOpenProfile(!openProfile)}>
-            👤 Profile ⮟
-          </li>
-
-          {openProfile && (
-            <div className="dropdown">
-              <a href="/signin">Sign In</a>
-              <a href="/signup">Sign Up</a>
-              <a href="/profile">My Profile</a>
-              <a href="/settings">Settings</a>
-            </div>
-          )}
+        <ul className="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li><a href="/collections">Collections</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
 
-      </aside>
+        <div className="nav-right">
+          {/* Profile link */}
+          <a href="/profile" className="profile-link">Profile</a>
 
-      {/* Main Content */}
-      <main className="main-content">
+          {/* Dropdown */}
+          <div
+            className="dropdown"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="dropdown-title">Account ▾</span>
+            {dropdownOpen && (
+              <div className="dropdown-content">
+                <a href="/signin" onClick={handleDropdownLinkClick}>Sign In</a>
+                <a href="/signup" onClick={handleDropdownLinkClick}>Sign Up</a>
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
 
+      {/* Hero Section */}
+      <div className="hero">
+        <img src="images/download (2).jpg" alt="Hero" className="hero-img" />
         <div className="hero-text">
-          <h2>🎉 Welcome to GiftNest</h2>
-          <p>Your one-stop shop for meaningful gifts</p>
+          <h1>Stylish Furniture for Your Home</h1>
+          <p>Modern designs that bring comfort and style.</p>
+          <a href="/getproducts" className="hero-btn">Shop Now</a>
         </div>
-
-        <div className="carousel">
-          <img src={slides[index].image} alt="slide" />
-
-          <div className="overlay">
-            <h1>{slides[index].title}</h1>
-            <p>{slides[index].desc}</p>
-          </div>
-
-          <div className="controls">
-            <button onClick={() =>
-              setIndex(index === 0 ? slides.length - 1 : index - 1)
-            }>◀</button>
-
-            <button onClick={() =>
-              setIndex((index + 1) % slides.length)
-            }>▶</button>
-          </div>
-
-          <div className="indicators">
-            {slides.map((_, i) => (
-              <span
-                key={i}
-                className={i === index ? "dot active" : "dot"}
-                onClick={() => setIndex(i)}
-              />
-            ))}
-          </div>
-        </div>
-
-      </main>
-
-    </div>
+      </div>
+    </header>
   );
 };
 
-export default Sidebar;
+export default Navbar;
